@@ -21,3 +21,24 @@ python main.py
 ```
 
 Then you can input the sentence you want to generate the software, as well as the folder name to store, the agent will generate the whole software for you.
+
+The following code indicates some parameters you can set in the `main.py` file:
+
+```python
+initial_state = {
+            'messages': [],
+            'complexity': '',
+            'llm_query': '',
+            'project_dir': project_dir,
+            'code_history': {},
+            'debug_history': {},
+            'structure': None,
+            'current_index': None,
+
+            'debugging': True,
+            'debug_timeout': 10,
+            'max_debugging_num': 10,
+        }
+```
+
+You can set the `debugging` parameter to `True` or `False` to enable or disable the debugging process. You can also set the `debug_timeout` and `max_debugging_num` to control the maximum time to debug a single code and the maximum number of debugging times, to prevent infinite loop.
