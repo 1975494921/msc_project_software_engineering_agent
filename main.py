@@ -90,8 +90,4 @@ if __name__ == '__main__':
         app_compiled = build_graph(query)
         app_compiled.invoke(initial_state, {"recursion_limit": 1000})
 
-        # Reset the standard output back to its original value
         sys.stdout = dual_output.console
-
-    # Optionally, print a message to confirm the output was saved
-    print("All print statements have been saved to output.txt and also printed to the console.")

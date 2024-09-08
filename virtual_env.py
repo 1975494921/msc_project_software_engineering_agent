@@ -31,13 +31,10 @@ def module_runner(queue, code_dict, main_module_name):
 
         main_module = created_modules[main_module_name]
 
-        # Force the __name__ of the main module to be '__main__'
         main_module.__name__ = '__main__'
 
-        # Execute the main module's code with the updated __name__
         exec(code_dict[main_module_name], main_module.__dict__)
 
-        # Flush stdout and stderr into the queue
         stdout.flush()
         stderr.flush()
 
