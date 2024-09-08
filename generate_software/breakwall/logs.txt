@@ -1,0 +1,3090 @@
+This is a graph-based software engineering agent that can create a whole complex software project (Author Junting Li)
+
+The complexity of the project structure: multi-file
+### 1. `constants.py`
+
+This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+
+### 2. `game_object.py`
+
+This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+
+### 3. `ball.py`
+
+This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+
+### 4. `paddle.py`
+
+This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+
+### 5. `brick.py`
+
+This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+
+### 6. `level_manager.py`
+
+This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+
+### 7. `collision_handler.py`
+
+This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+
+### 8. `game_state.py`
+
+This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+
+### 9. `speed_controller.py`
+
+This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+
+### 10. `input_handler.py`
+
+This file will handle user input, such as moving the paddle and adjusting the game speed.
+
+### 11. `main.py`
+
+This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+----------------------------------------------------------------------------------------------------
+[
+    {
+        "constants.py": "This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed."
+    },
+    {
+        "game_object.py": "This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects."
+    },
+    {
+        "ball.py": "This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection."
+    },
+    {
+        "paddle.py": "This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball."
+    },
+    {
+        "brick.py": "This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball."
+    },
+    {
+        "level_manager.py": "This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors."
+    },
+    {
+        "collision_handler.py": "This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly."
+    },
+    {
+        "game_state.py": "This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won."
+    },
+    {
+        "speed_controller.py": "This file will implement a speed controller that adjusts the ball's speed based on user input or game progress."
+    },
+    {
+        "input_handler.py": "This file will handle user input, such as moving the paddle and adjusting the game speed."
+    },
+    {
+        "main.py": "This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller."
+    }
+]
+
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+constants.py:
+query:
+implement a breakwall game with python, you can add some extra features like number of lives and speed controller
+The project is separate into the following part:
+1.constants.py: This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+2.game_object.py: This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+3.ball.py: This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+4.paddle.py: This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+5.brick.py: This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+6.level_manager.py: This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+7.collision_handler.py: This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+8.game_state.py: This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+9.speed_controller.py: This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+10.input_handler.py: This file will handle user input, such as moving the paddle and adjusting the game speed.
+11.main.py: This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+
+When writting codes, please takes into account the parts that are yet to be written, which they may need the current code to implement their functionality. Please write the code for the constants.py:
+
+----------------------------------------------------------------------------------------------------
+response:
+```python
+# constants.py
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Game settings
+INITIAL_LIVES = 3
+INITIAL_BALL_SPEED = 5
+PADDLE_SPEED = 10
+BRICK_ROWS = 5
+BRICK_COLUMNS = 10
+BRICK_WIDTH = SCREEN_WIDTH // BRICK_COLUMNS
+BRICK_HEIGHT = 20
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 10
+BALL_SIZE = 10
+
+# Game states
+GAME_RUNNING = 0
+GAME_OVER = 1
+GAME_WON = 2
+```
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Debugging constants.py:
+Passed: True, {'error': '', 'output': ''}
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+game_object.py:
+query:
+implement a breakwall game with python, you can add some extra features like number of lives and speed controller
+The project is separate into the following part:
+1.constants.py: This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+2.game_object.py: This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+3.ball.py: This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+4.paddle.py: This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+5.brick.py: This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+6.level_manager.py: This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+7.collision_handler.py: This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+8.game_state.py: This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+9.speed_controller.py: This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+10.input_handler.py: This file will handle user input, such as moving the paddle and adjusting the game speed.
+11.main.py: This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+
+Some codes have been written:
+constants.py:
+# constants.py
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Game settings
+INITIAL_LIVES = 3
+INITIAL_BALL_SPEED = 5
+PADDLE_SPEED = 10
+BRICK_ROWS = 5
+BRICK_COLUMNS = 10
+BRICK_WIDTH = SCREEN_WIDTH // BRICK_COLUMNS
+BRICK_HEIGHT = 20
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 10
+BALL_SIZE = 10
+
+# Game states
+GAME_RUNNING = 0
+GAME_OVER = 1
+GAME_WON = 2
+
+#### split code ####
+
+You can import the code above with the filenames and use them in the current part.
+When writting codes, please takes into account the parts that are yet to be written, which they may need the current code to implement their functionality. Please write the code for the game_object.py:
+
+----------------------------------------------------------------------------------------------------
+response:
+```python
+# game_object.py
+
+import pygame
+from constants import *
+
+class GameObject:
+    def __init__(self, x, y, width, height, color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def update(self):
+        pass
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game_object = GameObject(100, 100, 50, 50, RED)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        game_object.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+```
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Debugging game_object.py:
+Passed: True, {'error': 'Process terminated due to timeout.', 'output': ''}
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+ball.py:
+query:
+implement a breakwall game with python, you can add some extra features like number of lives and speed controller
+The project is separate into the following part:
+1.constants.py: This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+2.game_object.py: This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+3.ball.py: This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+4.paddle.py: This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+5.brick.py: This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+6.level_manager.py: This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+7.collision_handler.py: This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+8.game_state.py: This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+9.speed_controller.py: This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+10.input_handler.py: This file will handle user input, such as moving the paddle and adjusting the game speed.
+11.main.py: This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+
+Some codes have been written:
+constants.py:
+# constants.py
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Game settings
+INITIAL_LIVES = 3
+INITIAL_BALL_SPEED = 5
+PADDLE_SPEED = 10
+BRICK_ROWS = 5
+BRICK_COLUMNS = 10
+BRICK_WIDTH = SCREEN_WIDTH // BRICK_COLUMNS
+BRICK_HEIGHT = 20
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 10
+BALL_SIZE = 10
+
+# Game states
+GAME_RUNNING = 0
+GAME_OVER = 1
+GAME_WON = 2
+
+#### split code ####
+game_object.py:
+# game_object.py
+
+import pygame
+from constants import *
+
+class GameObject:
+    def __init__(self, x, y, width, height, color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def update(self):
+        pass
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game_object = GameObject(100, 100, 50, 50, RED)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        game_object.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+
+You can import the code above with the filenames and use them in the current part.
+When writting codes, please takes into account the parts that are yet to be written, which they may need the current code to implement their functionality. Please write the code for the ball.py:
+
+----------------------------------------------------------------------------------------------------
+response:
+```python
+# ball.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Ball(GameObject):
+    def __init__(self, x, y, size, color=WHITE, speed=INITIAL_BALL_SPEED):
+        super().__init__(x, y, size, size, color)
+        self.speed = speed
+        self.dx = speed
+        self.dy = -speed
+
+    def update(self):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
+        # Bounce off the walls
+        if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
+            self.dx = -self.dx
+        if self.rect.top < 0:
+            self.dy = -self.dy
+
+    def reset(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
+        self.dx = self.speed
+        self.dy = -self.speed
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        ball.update()
+        ball.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+```
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Debugging ball.py:
+Passed: True, {'error': 'Process terminated due to timeout.', 'output': ''}
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+paddle.py:
+query:
+implement a breakwall game with python, you can add some extra features like number of lives and speed controller
+The project is separate into the following part:
+1.constants.py: This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+2.game_object.py: This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+3.ball.py: This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+4.paddle.py: This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+5.brick.py: This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+6.level_manager.py: This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+7.collision_handler.py: This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+8.game_state.py: This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+9.speed_controller.py: This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+10.input_handler.py: This file will handle user input, such as moving the paddle and adjusting the game speed.
+11.main.py: This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+
+Some codes have been written:
+constants.py:
+# constants.py
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Game settings
+INITIAL_LIVES = 3
+INITIAL_BALL_SPEED = 5
+PADDLE_SPEED = 10
+BRICK_ROWS = 5
+BRICK_COLUMNS = 10
+BRICK_WIDTH = SCREEN_WIDTH // BRICK_COLUMNS
+BRICK_HEIGHT = 20
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 10
+BALL_SIZE = 10
+
+# Game states
+GAME_RUNNING = 0
+GAME_OVER = 1
+GAME_WON = 2
+
+#### split code ####
+game_object.py:
+# game_object.py
+
+import pygame
+from constants import *
+
+class GameObject:
+    def __init__(self, x, y, width, height, color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def update(self):
+        pass
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game_object = GameObject(100, 100, 50, 50, RED)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        game_object.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+ball.py:
+# ball.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Ball(GameObject):
+    def __init__(self, x, y, size, color=WHITE, speed=INITIAL_BALL_SPEED):
+        super().__init__(x, y, size, size, color)
+        self.speed = speed
+        self.dx = speed
+        self.dy = -speed
+
+    def update(self):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
+        # Bounce off the walls
+        if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
+            self.dx = -self.dx
+        if self.rect.top < 0:
+            self.dy = -self.dy
+
+    def reset(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
+        self.dx = self.speed
+        self.dy = -self.speed
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        ball.update()
+        ball.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+
+You can import the code above with the filenames and use them in the current part.
+When writting codes, please takes into account the parts that are yet to be written, which they may need the current code to implement their functionality. Please write the code for the paddle.py:
+
+----------------------------------------------------------------------------------------------------
+response:
+```python
+# paddle.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Paddle(GameObject):
+    def __init__(self, x, y, width, height, color=BLUE, speed=PADDLE_SPEED):
+        super().__init__(x, y, width, height, color)
+        self.speed = speed
+
+    def update(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += self.speed
+
+        # Keep the paddle within the screen bounds
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+        paddle.update(keys)
+        paddle.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+```
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Debugging paddle.py:
+Passed: True, {'error': 'Process terminated due to timeout.', 'output': ''}
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+brick.py:
+query:
+implement a breakwall game with python, you can add some extra features like number of lives and speed controller
+The project is separate into the following part:
+1.constants.py: This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+2.game_object.py: This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+3.ball.py: This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+4.paddle.py: This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+5.brick.py: This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+6.level_manager.py: This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+7.collision_handler.py: This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+8.game_state.py: This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+9.speed_controller.py: This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+10.input_handler.py: This file will handle user input, such as moving the paddle and adjusting the game speed.
+11.main.py: This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+
+Some codes have been written:
+constants.py:
+# constants.py
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Game settings
+INITIAL_LIVES = 3
+INITIAL_BALL_SPEED = 5
+PADDLE_SPEED = 10
+BRICK_ROWS = 5
+BRICK_COLUMNS = 10
+BRICK_WIDTH = SCREEN_WIDTH // BRICK_COLUMNS
+BRICK_HEIGHT = 20
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 10
+BALL_SIZE = 10
+
+# Game states
+GAME_RUNNING = 0
+GAME_OVER = 1
+GAME_WON = 2
+
+#### split code ####
+game_object.py:
+# game_object.py
+
+import pygame
+from constants import *
+
+class GameObject:
+    def __init__(self, x, y, width, height, color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def update(self):
+        pass
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game_object = GameObject(100, 100, 50, 50, RED)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        game_object.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+ball.py:
+# ball.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Ball(GameObject):
+    def __init__(self, x, y, size, color=WHITE, speed=INITIAL_BALL_SPEED):
+        super().__init__(x, y, size, size, color)
+        self.speed = speed
+        self.dx = speed
+        self.dy = -speed
+
+    def update(self):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
+        # Bounce off the walls
+        if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
+            self.dx = -self.dx
+        if self.rect.top < 0:
+            self.dy = -self.dy
+
+    def reset(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
+        self.dx = self.speed
+        self.dy = -self.speed
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        ball.update()
+        ball.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+paddle.py:
+# paddle.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Paddle(GameObject):
+    def __init__(self, x, y, width, height, color=BLUE, speed=PADDLE_SPEED):
+        super().__init__(x, y, width, height, color)
+        self.speed = speed
+
+    def update(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += self.speed
+
+        # Keep the paddle within the screen bounds
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+        paddle.update(keys)
+        paddle.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+
+You can import the code above with the filenames and use them in the current part.
+When writting codes, please takes into account the parts that are yet to be written, which they may need the current code to implement their functionality. Please write the code for the brick.py:
+
+----------------------------------------------------------------------------------------------------
+response:
+```python
+# brick.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Brick(GameObject):
+    def __init__(self, x, y, width, height, color=GREEN):
+        super().__init__(x, y, width, height, color)
+        self.is_destroyed = False
+
+    def update(self):
+        if self.is_destroyed:
+            self.rect.x = -100  # Move off-screen
+            self.rect.y = -100
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    brick = Brick(100, 100, BRICK_WIDTH, BRICK_HEIGHT)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        brick.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+```
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Debugging brick.py:
+Passed: True, {'error': 'Process terminated due to timeout.', 'output': ''}
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+level_manager.py:
+query:
+implement a breakwall game with python, you can add some extra features like number of lives and speed controller
+The project is separate into the following part:
+1.constants.py: This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+2.game_object.py: This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+3.ball.py: This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+4.paddle.py: This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+5.brick.py: This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+6.level_manager.py: This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+7.collision_handler.py: This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+8.game_state.py: This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+9.speed_controller.py: This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+10.input_handler.py: This file will handle user input, such as moving the paddle and adjusting the game speed.
+11.main.py: This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+
+Some codes have been written:
+constants.py:
+# constants.py
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Game settings
+INITIAL_LIVES = 3
+INITIAL_BALL_SPEED = 5
+PADDLE_SPEED = 10
+BRICK_ROWS = 5
+BRICK_COLUMNS = 10
+BRICK_WIDTH = SCREEN_WIDTH // BRICK_COLUMNS
+BRICK_HEIGHT = 20
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 10
+BALL_SIZE = 10
+
+# Game states
+GAME_RUNNING = 0
+GAME_OVER = 1
+GAME_WON = 2
+
+#### split code ####
+game_object.py:
+# game_object.py
+
+import pygame
+from constants import *
+
+class GameObject:
+    def __init__(self, x, y, width, height, color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def update(self):
+        pass
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game_object = GameObject(100, 100, 50, 50, RED)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        game_object.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+ball.py:
+# ball.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Ball(GameObject):
+    def __init__(self, x, y, size, color=WHITE, speed=INITIAL_BALL_SPEED):
+        super().__init__(x, y, size, size, color)
+        self.speed = speed
+        self.dx = speed
+        self.dy = -speed
+
+    def update(self):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
+        # Bounce off the walls
+        if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
+            self.dx = -self.dx
+        if self.rect.top < 0:
+            self.dy = -self.dy
+
+    def reset(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
+        self.dx = self.speed
+        self.dy = -self.speed
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        ball.update()
+        ball.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+paddle.py:
+# paddle.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Paddle(GameObject):
+    def __init__(self, x, y, width, height, color=BLUE, speed=PADDLE_SPEED):
+        super().__init__(x, y, width, height, color)
+        self.speed = speed
+
+    def update(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += self.speed
+
+        # Keep the paddle within the screen bounds
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+        paddle.update(keys)
+        paddle.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+brick.py:
+# brick.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Brick(GameObject):
+    def __init__(self, x, y, width, height, color=GREEN):
+        super().__init__(x, y, width, height, color)
+        self.is_destroyed = False
+
+    def update(self):
+        if self.is_destroyed:
+            self.rect.x = -100  # Move off-screen
+            self.rect.y = -100
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    brick = Brick(100, 100, BRICK_WIDTH, BRICK_HEIGHT)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        brick.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+
+You can import the code above with the filenames and use them in the current part.
+When writting codes, please takes into account the parts that are yet to be written, which they may need the current code to implement their functionality. Please write the code for the level_manager.py:
+
+----------------------------------------------------------------------------------------------------
+response:
+```python
+# level_manager.py
+
+from brick import Brick
+from constants import *
+
+class LevelManager:
+    def __init__(self):
+        self.bricks = []
+        self.create_level()
+
+    def create_level(self):
+        self.bricks.clear()
+        for row in range(BRICK_ROWS):
+            for col in range(BRICK_COLUMNS):
+                x = col * BRICK_WIDTH
+                y = row * BRICK_HEIGHT + 50  # Offset to avoid overlap with top of the screen
+                brick = Brick(x, y, BRICK_WIDTH, BRICK_HEIGHT)
+                self.bricks.append(brick)
+
+    def draw_bricks(self, screen):
+        for brick in self.bricks:
+            if not brick.is_destroyed:
+                brick.draw(screen)
+
+    def update_bricks(self):
+        for brick in self.bricks:
+            brick.update()
+
+if __name__ == "__main__":
+    import pygame
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    level_manager = LevelManager()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        level_manager.draw_bricks(screen)
+        pygame.display.flip()
+    pygame.quit()
+```
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Debugging level_manager.py:
+Passed: True, {'error': 'Process terminated due to timeout.', 'output': ''}
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+collision_handler.py:
+query:
+implement a breakwall game with python, you can add some extra features like number of lives and speed controller
+The project is separate into the following part:
+1.constants.py: This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+2.game_object.py: This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+3.ball.py: This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+4.paddle.py: This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+5.brick.py: This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+6.level_manager.py: This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+7.collision_handler.py: This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+8.game_state.py: This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+9.speed_controller.py: This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+10.input_handler.py: This file will handle user input, such as moving the paddle and adjusting the game speed.
+11.main.py: This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+
+Some codes have been written:
+constants.py:
+# constants.py
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Game settings
+INITIAL_LIVES = 3
+INITIAL_BALL_SPEED = 5
+PADDLE_SPEED = 10
+BRICK_ROWS = 5
+BRICK_COLUMNS = 10
+BRICK_WIDTH = SCREEN_WIDTH // BRICK_COLUMNS
+BRICK_HEIGHT = 20
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 10
+BALL_SIZE = 10
+
+# Game states
+GAME_RUNNING = 0
+GAME_OVER = 1
+GAME_WON = 2
+
+#### split code ####
+game_object.py:
+# game_object.py
+
+import pygame
+from constants import *
+
+class GameObject:
+    def __init__(self, x, y, width, height, color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def update(self):
+        pass
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game_object = GameObject(100, 100, 50, 50, RED)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        game_object.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+ball.py:
+# ball.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Ball(GameObject):
+    def __init__(self, x, y, size, color=WHITE, speed=INITIAL_BALL_SPEED):
+        super().__init__(x, y, size, size, color)
+        self.speed = speed
+        self.dx = speed
+        self.dy = -speed
+
+    def update(self):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
+        # Bounce off the walls
+        if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
+            self.dx = -self.dx
+        if self.rect.top < 0:
+            self.dy = -self.dy
+
+    def reset(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
+        self.dx = self.speed
+        self.dy = -self.speed
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        ball.update()
+        ball.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+paddle.py:
+# paddle.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Paddle(GameObject):
+    def __init__(self, x, y, width, height, color=BLUE, speed=PADDLE_SPEED):
+        super().__init__(x, y, width, height, color)
+        self.speed = speed
+
+    def update(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += self.speed
+
+        # Keep the paddle within the screen bounds
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+        paddle.update(keys)
+        paddle.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+brick.py:
+# brick.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Brick(GameObject):
+    def __init__(self, x, y, width, height, color=GREEN):
+        super().__init__(x, y, width, height, color)
+        self.is_destroyed = False
+
+    def update(self):
+        if self.is_destroyed:
+            self.rect.x = -100  # Move off-screen
+            self.rect.y = -100
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    brick = Brick(100, 100, BRICK_WIDTH, BRICK_HEIGHT)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        brick.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+level_manager.py:
+# level_manager.py
+
+from brick import Brick
+from constants import *
+
+class LevelManager:
+    def __init__(self):
+        self.bricks = []
+        self.create_level()
+
+    def create_level(self):
+        self.bricks.clear()
+        for row in range(BRICK_ROWS):
+            for col in range(BRICK_COLUMNS):
+                x = col * BRICK_WIDTH
+                y = row * BRICK_HEIGHT + 50  # Offset to avoid overlap with top of the screen
+                brick = Brick(x, y, BRICK_WIDTH, BRICK_HEIGHT)
+                self.bricks.append(brick)
+
+    def draw_bricks(self, screen):
+        for brick in self.bricks:
+            if not brick.is_destroyed:
+                brick.draw(screen)
+
+    def update_bricks(self):
+        for brick in self.bricks:
+            brick.update()
+
+if __name__ == "__main__":
+    import pygame
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    level_manager = LevelManager()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        level_manager.draw_bricks(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+
+You can import the code above with the filenames and use them in the current part.
+When writting codes, please takes into account the parts that are yet to be written, which they may need the current code to implement their functionality. Please write the code for the collision_handler.py:
+
+----------------------------------------------------------------------------------------------------
+response:
+```python
+# collision_handler.py
+
+from ball import Ball
+from paddle import Paddle
+from brick import Brick
+
+class CollisionHandler:
+    @staticmethod
+    def check_ball_paddle_collision(ball, paddle):
+        if ball.rect.colliderect(paddle.rect):
+            ball.dy = -ball.dy
+            # Adjust ball's dx based on where it hits the paddle
+            relative_intersect_x = (paddle.rect.x + paddle.rect.width / 2) - ball.rect.x
+            normalized_intersect_x = relative_intersect_x / (paddle.rect.width / 2)
+            ball.dx = normalized_intersect_x * ball.speed
+
+    @staticmethod
+    def check_ball_brick_collision(ball, bricks):
+        for brick in bricks:
+            if not brick.is_destroyed and ball.rect.colliderect(brick.rect):
+                brick.is_destroyed = True
+                ball.dy = -ball.dy
+                break  # Assuming one collision per frame
+
+if __name__ == "__main__":
+    import pygame
+    from constants import *
+    from level_manager import LevelManager
+
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    level_manager = LevelManager()
+    collision_handler = CollisionHandler()
+
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+
+        paddle.update(keys)
+        ball.update()
+        level_manager.update_bricks()
+
+        collision_handler.check_ball_paddle_collision(ball, paddle)
+        collision_handler.check_ball_brick_collision(ball, level_manager.bricks)
+
+        paddle.draw(screen)
+        ball.draw(screen)
+        level_manager.draw_bricks(screen)
+
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+```
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Debugging collision_handler.py:
+Passed: True, {'error': 'Process terminated due to timeout.', 'output': ''}
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+game_state.py:
+query:
+implement a breakwall game with python, you can add some extra features like number of lives and speed controller
+The project is separate into the following part:
+1.constants.py: This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+2.game_object.py: This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+3.ball.py: This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+4.paddle.py: This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+5.brick.py: This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+6.level_manager.py: This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+7.collision_handler.py: This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+8.game_state.py: This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+9.speed_controller.py: This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+10.input_handler.py: This file will handle user input, such as moving the paddle and adjusting the game speed.
+11.main.py: This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+
+Some codes have been written:
+constants.py:
+# constants.py
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Game settings
+INITIAL_LIVES = 3
+INITIAL_BALL_SPEED = 5
+PADDLE_SPEED = 10
+BRICK_ROWS = 5
+BRICK_COLUMNS = 10
+BRICK_WIDTH = SCREEN_WIDTH // BRICK_COLUMNS
+BRICK_HEIGHT = 20
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 10
+BALL_SIZE = 10
+
+# Game states
+GAME_RUNNING = 0
+GAME_OVER = 1
+GAME_WON = 2
+
+#### split code ####
+game_object.py:
+# game_object.py
+
+import pygame
+from constants import *
+
+class GameObject:
+    def __init__(self, x, y, width, height, color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def update(self):
+        pass
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game_object = GameObject(100, 100, 50, 50, RED)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        game_object.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+ball.py:
+# ball.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Ball(GameObject):
+    def __init__(self, x, y, size, color=WHITE, speed=INITIAL_BALL_SPEED):
+        super().__init__(x, y, size, size, color)
+        self.speed = speed
+        self.dx = speed
+        self.dy = -speed
+
+    def update(self):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
+        # Bounce off the walls
+        if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
+            self.dx = -self.dx
+        if self.rect.top < 0:
+            self.dy = -self.dy
+
+    def reset(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
+        self.dx = self.speed
+        self.dy = -self.speed
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        ball.update()
+        ball.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+paddle.py:
+# paddle.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Paddle(GameObject):
+    def __init__(self, x, y, width, height, color=BLUE, speed=PADDLE_SPEED):
+        super().__init__(x, y, width, height, color)
+        self.speed = speed
+
+    def update(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += self.speed
+
+        # Keep the paddle within the screen bounds
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+        paddle.update(keys)
+        paddle.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+brick.py:
+# brick.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Brick(GameObject):
+    def __init__(self, x, y, width, height, color=GREEN):
+        super().__init__(x, y, width, height, color)
+        self.is_destroyed = False
+
+    def update(self):
+        if self.is_destroyed:
+            self.rect.x = -100  # Move off-screen
+            self.rect.y = -100
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    brick = Brick(100, 100, BRICK_WIDTH, BRICK_HEIGHT)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        brick.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+level_manager.py:
+# level_manager.py
+
+from brick import Brick
+from constants import *
+
+class LevelManager:
+    def __init__(self):
+        self.bricks = []
+        self.create_level()
+
+    def create_level(self):
+        self.bricks.clear()
+        for row in range(BRICK_ROWS):
+            for col in range(BRICK_COLUMNS):
+                x = col * BRICK_WIDTH
+                y = row * BRICK_HEIGHT + 50  # Offset to avoid overlap with top of the screen
+                brick = Brick(x, y, BRICK_WIDTH, BRICK_HEIGHT)
+                self.bricks.append(brick)
+
+    def draw_bricks(self, screen):
+        for brick in self.bricks:
+            if not brick.is_destroyed:
+                brick.draw(screen)
+
+    def update_bricks(self):
+        for brick in self.bricks:
+            brick.update()
+
+if __name__ == "__main__":
+    import pygame
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    level_manager = LevelManager()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        level_manager.draw_bricks(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+collision_handler.py:
+# collision_handler.py
+
+from ball import Ball
+from paddle import Paddle
+from brick import Brick
+
+class CollisionHandler:
+    @staticmethod
+    def check_ball_paddle_collision(ball, paddle):
+        if ball.rect.colliderect(paddle.rect):
+            ball.dy = -ball.dy
+            # Adjust ball's dx based on where it hits the paddle
+            relative_intersect_x = (paddle.rect.x + paddle.rect.width / 2) - ball.rect.x
+            normalized_intersect_x = relative_intersect_x / (paddle.rect.width / 2)
+            ball.dx = normalized_intersect_x * ball.speed
+
+    @staticmethod
+    def check_ball_brick_collision(ball, bricks):
+        for brick in bricks:
+            if not brick.is_destroyed and ball.rect.colliderect(brick.rect):
+                brick.is_destroyed = True
+                ball.dy = -ball.dy
+                break  # Assuming one collision per frame
+
+if __name__ == "__main__":
+    import pygame
+    from constants import *
+    from level_manager import LevelManager
+
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    level_manager = LevelManager()
+    collision_handler = CollisionHandler()
+
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+
+        paddle.update(keys)
+        ball.update()
+        level_manager.update_bricks()
+
+        collision_handler.check_ball_paddle_collision(ball, paddle)
+        collision_handler.check_ball_brick_collision(ball, level_manager.bricks)
+
+        paddle.draw(screen)
+        ball.draw(screen)
+        level_manager.draw_bricks(screen)
+
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+
+You can import the code above with the filenames and use them in the current part.
+When writting codes, please takes into account the parts that are yet to be written, which they may need the current code to implement their functionality. Please write the code for the game_state.py:
+
+----------------------------------------------------------------------------------------------------
+response:
+```python
+# game_state.py
+
+from constants import *
+
+class GameState:
+    def __init__(self):
+        self.lives = INITIAL_LIVES
+        self.score = 0
+        self.state = GAME_RUNNING
+
+    def lose_life(self):
+        self.lives -= 1
+        if self.lives <= 0:
+            self.state = GAME_OVER
+
+    def add_score(self, points):
+        self.score += points
+
+    def check_win(self, bricks):
+        if all(brick.is_destroyed for brick in bricks):
+            self.state = GAME_WON
+
+    def reset(self):
+        self.lives = INITIAL_LIVES
+        self.score = 0
+        self.state = GAME_RUNNING
+
+if __name__ == "__main__":
+    from level_manager import LevelManager
+    game_state = GameState()
+    level_manager = LevelManager()
+
+    # Simulate losing a life
+    game_state.lose_life()
+    print(f"Lives after losing one: {game_state.lives}")
+
+    # Simulate adding score
+    game_state.add_score(10)
+    print(f"Score after adding 10 points: {game_state.score}")
+
+    # Simulate checking for win condition
+    game_state.check_win(level_manager.bricks)
+    print(f"Game state after checking win condition: {game_state.state}")
+
+    # Reset game state
+    game_state.reset()
+    print(f"Game state after reset: Lives={game_state.lives}, Score={game_state.score}, State={game_state.state}")
+```
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Debugging game_state.py:
+Passed: True, {'error': '', 'output': 'pygame 2.6.0 (SDL 2.28.4, Python 3.10.14)\nHello from the pygame community. https://www.pygame.org/contribute.html\nLives after losing one: 2\nScore after adding 10 points: 10\nGame state after checking win condition: 0\nGame state after reset: Lives=3, Score=0, State=0\n'}
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+speed_controller.py:
+query:
+implement a breakwall game with python, you can add some extra features like number of lives and speed controller
+The project is separate into the following part:
+1.constants.py: This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+2.game_object.py: This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+3.ball.py: This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+4.paddle.py: This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+5.brick.py: This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+6.level_manager.py: This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+7.collision_handler.py: This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+8.game_state.py: This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+9.speed_controller.py: This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+10.input_handler.py: This file will handle user input, such as moving the paddle and adjusting the game speed.
+11.main.py: This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+
+Some codes have been written:
+constants.py:
+# constants.py
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Game settings
+INITIAL_LIVES = 3
+INITIAL_BALL_SPEED = 5
+PADDLE_SPEED = 10
+BRICK_ROWS = 5
+BRICK_COLUMNS = 10
+BRICK_WIDTH = SCREEN_WIDTH // BRICK_COLUMNS
+BRICK_HEIGHT = 20
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 10
+BALL_SIZE = 10
+
+# Game states
+GAME_RUNNING = 0
+GAME_OVER = 1
+GAME_WON = 2
+
+#### split code ####
+game_object.py:
+# game_object.py
+
+import pygame
+from constants import *
+
+class GameObject:
+    def __init__(self, x, y, width, height, color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def update(self):
+        pass
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game_object = GameObject(100, 100, 50, 50, RED)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        game_object.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+ball.py:
+# ball.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Ball(GameObject):
+    def __init__(self, x, y, size, color=WHITE, speed=INITIAL_BALL_SPEED):
+        super().__init__(x, y, size, size, color)
+        self.speed = speed
+        self.dx = speed
+        self.dy = -speed
+
+    def update(self):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
+        # Bounce off the walls
+        if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
+            self.dx = -self.dx
+        if self.rect.top < 0:
+            self.dy = -self.dy
+
+    def reset(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
+        self.dx = self.speed
+        self.dy = -self.speed
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        ball.update()
+        ball.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+paddle.py:
+# paddle.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Paddle(GameObject):
+    def __init__(self, x, y, width, height, color=BLUE, speed=PADDLE_SPEED):
+        super().__init__(x, y, width, height, color)
+        self.speed = speed
+
+    def update(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += self.speed
+
+        # Keep the paddle within the screen bounds
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+        paddle.update(keys)
+        paddle.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+brick.py:
+# brick.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Brick(GameObject):
+    def __init__(self, x, y, width, height, color=GREEN):
+        super().__init__(x, y, width, height, color)
+        self.is_destroyed = False
+
+    def update(self):
+        if self.is_destroyed:
+            self.rect.x = -100  # Move off-screen
+            self.rect.y = -100
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    brick = Brick(100, 100, BRICK_WIDTH, BRICK_HEIGHT)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        brick.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+level_manager.py:
+# level_manager.py
+
+from brick import Brick
+from constants import *
+
+class LevelManager:
+    def __init__(self):
+        self.bricks = []
+        self.create_level()
+
+    def create_level(self):
+        self.bricks.clear()
+        for row in range(BRICK_ROWS):
+            for col in range(BRICK_COLUMNS):
+                x = col * BRICK_WIDTH
+                y = row * BRICK_HEIGHT + 50  # Offset to avoid overlap with top of the screen
+                brick = Brick(x, y, BRICK_WIDTH, BRICK_HEIGHT)
+                self.bricks.append(brick)
+
+    def draw_bricks(self, screen):
+        for brick in self.bricks:
+            if not brick.is_destroyed:
+                brick.draw(screen)
+
+    def update_bricks(self):
+        for brick in self.bricks:
+            brick.update()
+
+if __name__ == "__main__":
+    import pygame
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    level_manager = LevelManager()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        level_manager.draw_bricks(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+collision_handler.py:
+# collision_handler.py
+
+from ball import Ball
+from paddle import Paddle
+from brick import Brick
+
+class CollisionHandler:
+    @staticmethod
+    def check_ball_paddle_collision(ball, paddle):
+        if ball.rect.colliderect(paddle.rect):
+            ball.dy = -ball.dy
+            # Adjust ball's dx based on where it hits the paddle
+            relative_intersect_x = (paddle.rect.x + paddle.rect.width / 2) - ball.rect.x
+            normalized_intersect_x = relative_intersect_x / (paddle.rect.width / 2)
+            ball.dx = normalized_intersect_x * ball.speed
+
+    @staticmethod
+    def check_ball_brick_collision(ball, bricks):
+        for brick in bricks:
+            if not brick.is_destroyed and ball.rect.colliderect(brick.rect):
+                brick.is_destroyed = True
+                ball.dy = -ball.dy
+                break  # Assuming one collision per frame
+
+if __name__ == "__main__":
+    import pygame
+    from constants import *
+    from level_manager import LevelManager
+
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    level_manager = LevelManager()
+    collision_handler = CollisionHandler()
+
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+
+        paddle.update(keys)
+        ball.update()
+        level_manager.update_bricks()
+
+        collision_handler.check_ball_paddle_collision(ball, paddle)
+        collision_handler.check_ball_brick_collision(ball, level_manager.bricks)
+
+        paddle.draw(screen)
+        ball.draw(screen)
+        level_manager.draw_bricks(screen)
+
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+game_state.py:
+# game_state.py
+
+from constants import *
+
+class GameState:
+    def __init__(self):
+        self.lives = INITIAL_LIVES
+        self.score = 0
+        self.state = GAME_RUNNING
+
+    def lose_life(self):
+        self.lives -= 1
+        if self.lives <= 0:
+            self.state = GAME_OVER
+
+    def add_score(self, points):
+        self.score += points
+
+    def check_win(self, bricks):
+        if all(brick.is_destroyed for brick in bricks):
+            self.state = GAME_WON
+
+    def reset(self):
+        self.lives = INITIAL_LIVES
+        self.score = 0
+        self.state = GAME_RUNNING
+
+if __name__ == "__main__":
+    from level_manager import LevelManager
+    game_state = GameState()
+    level_manager = LevelManager()
+
+    # Simulate losing a life
+    game_state.lose_life()
+    print(f"Lives after losing one: {game_state.lives}")
+
+    # Simulate adding score
+    game_state.add_score(10)
+    print(f"Score after adding 10 points: {game_state.score}")
+
+    # Simulate checking for win condition
+    game_state.check_win(level_manager.bricks)
+    print(f"Game state after checking win condition: {game_state.state}")
+
+    # Reset game state
+    game_state.reset()
+    print(f"Game state after reset: Lives={game_state.lives}, Score={game_state.score}, State={game_state.state}")
+
+#### split code ####
+
+You can import the code above with the filenames and use them in the current part.
+When writting codes, please takes into account the parts that are yet to be written, which they may need the current code to implement their functionality. Please write the code for the speed_controller.py:
+
+----------------------------------------------------------------------------------------------------
+response:
+```python
+# speed_controller.py
+
+from constants import INITIAL_BALL_SPEED
+
+class SpeedController:
+    def __init__(self, initial_speed=INITIAL_BALL_SPEED):
+        self.speed = initial_speed
+
+    def increase_speed(self, increment=1):
+        self.speed += increment
+
+    def decrease_speed(self, decrement=1):
+        if self.speed - decrement > 0:
+            self.speed -= decrement
+
+    def get_speed(self):
+        return self.speed
+
+if __name__ == "__main__":
+    speed_controller = SpeedController()
+    print(f"Initial speed: {speed_controller.get_speed()}")
+
+    speed_controller.increase_speed()
+    print(f"Speed after increase: {speed_controller.get_speed()}")
+
+    speed_controller.decrease_speed()
+    print(f"Speed after decrease: {speed_controller.get_speed()}")
+```
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Debugging speed_controller.py:
+Passed: True, {'error': '', 'output': 'pygame 2.6.0 (SDL 2.28.4, Python 3.10.14)\nHello from the pygame community. https://www.pygame.org/contribute.html\nInitial speed: 5\nSpeed after increase: 6\nSpeed after decrease: 5\n'}
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+input_handler.py:
+query:
+implement a breakwall game with python, you can add some extra features like number of lives and speed controller
+The project is separate into the following part:
+1.constants.py: This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+2.game_object.py: This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+3.ball.py: This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+4.paddle.py: This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+5.brick.py: This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+6.level_manager.py: This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+7.collision_handler.py: This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+8.game_state.py: This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+9.speed_controller.py: This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+10.input_handler.py: This file will handle user input, such as moving the paddle and adjusting the game speed.
+11.main.py: This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+
+Some codes have been written:
+constants.py:
+# constants.py
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Game settings
+INITIAL_LIVES = 3
+INITIAL_BALL_SPEED = 5
+PADDLE_SPEED = 10
+BRICK_ROWS = 5
+BRICK_COLUMNS = 10
+BRICK_WIDTH = SCREEN_WIDTH // BRICK_COLUMNS
+BRICK_HEIGHT = 20
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 10
+BALL_SIZE = 10
+
+# Game states
+GAME_RUNNING = 0
+GAME_OVER = 1
+GAME_WON = 2
+
+#### split code ####
+game_object.py:
+# game_object.py
+
+import pygame
+from constants import *
+
+class GameObject:
+    def __init__(self, x, y, width, height, color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def update(self):
+        pass
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game_object = GameObject(100, 100, 50, 50, RED)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        game_object.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+ball.py:
+# ball.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Ball(GameObject):
+    def __init__(self, x, y, size, color=WHITE, speed=INITIAL_BALL_SPEED):
+        super().__init__(x, y, size, size, color)
+        self.speed = speed
+        self.dx = speed
+        self.dy = -speed
+
+    def update(self):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
+        # Bounce off the walls
+        if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
+            self.dx = -self.dx
+        if self.rect.top < 0:
+            self.dy = -self.dy
+
+    def reset(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
+        self.dx = self.speed
+        self.dy = -self.speed
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        ball.update()
+        ball.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+paddle.py:
+# paddle.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Paddle(GameObject):
+    def __init__(self, x, y, width, height, color=BLUE, speed=PADDLE_SPEED):
+        super().__init__(x, y, width, height, color)
+        self.speed = speed
+
+    def update(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += self.speed
+
+        # Keep the paddle within the screen bounds
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+        paddle.update(keys)
+        paddle.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+brick.py:
+# brick.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Brick(GameObject):
+    def __init__(self, x, y, width, height, color=GREEN):
+        super().__init__(x, y, width, height, color)
+        self.is_destroyed = False
+
+    def update(self):
+        if self.is_destroyed:
+            self.rect.x = -100  # Move off-screen
+            self.rect.y = -100
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    brick = Brick(100, 100, BRICK_WIDTH, BRICK_HEIGHT)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        brick.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+level_manager.py:
+# level_manager.py
+
+from brick import Brick
+from constants import *
+
+class LevelManager:
+    def __init__(self):
+        self.bricks = []
+        self.create_level()
+
+    def create_level(self):
+        self.bricks.clear()
+        for row in range(BRICK_ROWS):
+            for col in range(BRICK_COLUMNS):
+                x = col * BRICK_WIDTH
+                y = row * BRICK_HEIGHT + 50  # Offset to avoid overlap with top of the screen
+                brick = Brick(x, y, BRICK_WIDTH, BRICK_HEIGHT)
+                self.bricks.append(brick)
+
+    def draw_bricks(self, screen):
+        for brick in self.bricks:
+            if not brick.is_destroyed:
+                brick.draw(screen)
+
+    def update_bricks(self):
+        for brick in self.bricks:
+            brick.update()
+
+if __name__ == "__main__":
+    import pygame
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    level_manager = LevelManager()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        level_manager.draw_bricks(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+collision_handler.py:
+# collision_handler.py
+
+from ball import Ball
+from paddle import Paddle
+from brick import Brick
+
+class CollisionHandler:
+    @staticmethod
+    def check_ball_paddle_collision(ball, paddle):
+        if ball.rect.colliderect(paddle.rect):
+            ball.dy = -ball.dy
+            # Adjust ball's dx based on where it hits the paddle
+            relative_intersect_x = (paddle.rect.x + paddle.rect.width / 2) - ball.rect.x
+            normalized_intersect_x = relative_intersect_x / (paddle.rect.width / 2)
+            ball.dx = normalized_intersect_x * ball.speed
+
+    @staticmethod
+    def check_ball_brick_collision(ball, bricks):
+        for brick in bricks:
+            if not brick.is_destroyed and ball.rect.colliderect(brick.rect):
+                brick.is_destroyed = True
+                ball.dy = -ball.dy
+                break  # Assuming one collision per frame
+
+if __name__ == "__main__":
+    import pygame
+    from constants import *
+    from level_manager import LevelManager
+
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    level_manager = LevelManager()
+    collision_handler = CollisionHandler()
+
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+
+        paddle.update(keys)
+        ball.update()
+        level_manager.update_bricks()
+
+        collision_handler.check_ball_paddle_collision(ball, paddle)
+        collision_handler.check_ball_brick_collision(ball, level_manager.bricks)
+
+        paddle.draw(screen)
+        ball.draw(screen)
+        level_manager.draw_bricks(screen)
+
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+game_state.py:
+# game_state.py
+
+from constants import *
+
+class GameState:
+    def __init__(self):
+        self.lives = INITIAL_LIVES
+        self.score = 0
+        self.state = GAME_RUNNING
+
+    def lose_life(self):
+        self.lives -= 1
+        if self.lives <= 0:
+            self.state = GAME_OVER
+
+    def add_score(self, points):
+        self.score += points
+
+    def check_win(self, bricks):
+        if all(brick.is_destroyed for brick in bricks):
+            self.state = GAME_WON
+
+    def reset(self):
+        self.lives = INITIAL_LIVES
+        self.score = 0
+        self.state = GAME_RUNNING
+
+if __name__ == "__main__":
+    from level_manager import LevelManager
+    game_state = GameState()
+    level_manager = LevelManager()
+
+    # Simulate losing a life
+    game_state.lose_life()
+    print(f"Lives after losing one: {game_state.lives}")
+
+    # Simulate adding score
+    game_state.add_score(10)
+    print(f"Score after adding 10 points: {game_state.score}")
+
+    # Simulate checking for win condition
+    game_state.check_win(level_manager.bricks)
+    print(f"Game state after checking win condition: {game_state.state}")
+
+    # Reset game state
+    game_state.reset()
+    print(f"Game state after reset: Lives={game_state.lives}, Score={game_state.score}, State={game_state.state}")
+
+#### split code ####
+speed_controller.py:
+# speed_controller.py
+
+from constants import INITIAL_BALL_SPEED
+
+class SpeedController:
+    def __init__(self, initial_speed=INITIAL_BALL_SPEED):
+        self.speed = initial_speed
+
+    def increase_speed(self, increment=1):
+        self.speed += increment
+
+    def decrease_speed(self, decrement=1):
+        if self.speed - decrement > 0:
+            self.speed -= decrement
+
+    def get_speed(self):
+        return self.speed
+
+if __name__ == "__main__":
+    speed_controller = SpeedController()
+    print(f"Initial speed: {speed_controller.get_speed()}")
+
+    speed_controller.increase_speed()
+    print(f"Speed after increase: {speed_controller.get_speed()}")
+
+    speed_controller.decrease_speed()
+    print(f"Speed after decrease: {speed_controller.get_speed()}")
+
+#### split code ####
+
+You can import the code above with the filenames and use them in the current part.
+When writting codes, please takes into account the parts that are yet to be written, which they may need the current code to implement their functionality. Please write the code for the input_handler.py:
+
+----------------------------------------------------------------------------------------------------
+response:
+```python
+# input_handler.py
+
+import pygame
+
+class InputHandler:
+    def __init__(self, paddle, speed_controller):
+        self.paddle = paddle
+        self.speed_controller = speed_controller
+
+    def handle_input(self):
+        keys = pygame.key.get_pressed()
+        self.paddle.update(keys)
+
+        if keys[pygame.K_UP]:
+            self.speed_controller.increase_speed()
+        if keys[pygame.K_DOWN]:
+            self.speed_controller.decrease_speed()
+
+if __name__ == "__main__":
+    pygame.init()
+    from paddle import Paddle
+    from speed_controller import SpeedController
+    from constants import *
+
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    speed_controller = SpeedController()
+    input_handler = InputHandler(paddle, speed_controller)
+
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        input_handler.handle_input()
+
+        screen.fill(BLACK)
+        paddle.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+```
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Debugging input_handler.py:
+Passed: True, {'error': 'Process terminated due to timeout.', 'output': ''}
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+main.py:
+query:
+implement a breakwall game with python, you can add some extra features like number of lives and speed controller
+The project is separate into the following part:
+1.constants.py: This file will define constants used throughout the game, such as screen dimensions, colors, and initial settings for lives and speed.
+2.game_object.py: This file will define the base class for game objects, such as the ball, paddle, and bricks. It will include properties like position, size, and methods for updating and drawing these objects.
+3.ball.py: This file will inherit from `game_object.py` to define the ball's specific behavior, including movement logic and collision detection.
+4.paddle.py: This file will inherit from `game_object.py` to define the paddle's specific behavior, including movement logic and collision detection with the ball.
+5.brick.py: This file will inherit from `game_object.py` to define the bricks' specific behavior, including their destruction upon being hit by the ball.
+6.level_manager.py: This file will handle the creation and management of levels, including the arrangement of bricks and any special brick behaviors.
+7.collision_handler.py: This file will handle all collision detection logic, updating the positions and states of the ball, paddle, and bricks accordingly.
+8.game_state.py: This file will manage the game state, including tracking the number of lives, the current score, and whether the game is over or won.
+9.speed_controller.py: This file will implement a speed controller that adjusts the ball's speed based on user input or game progress.
+10.input_handler.py: This file will handle user input, such as moving the paddle and adjusting the game speed.
+11.main.py: This file will serve as the entry point of the game, initializing the game window, creating instances of the ball, paddle, bricks, and other components, and running the main game loop. It will integrate all the other parts to implement the full functionality of the Breakwall game, including the extra features of number of lives and speed controller.
+
+Some codes have been written:
+constants.py:
+# constants.py
+
+# Screen dimensions
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+# Game settings
+INITIAL_LIVES = 3
+INITIAL_BALL_SPEED = 5
+PADDLE_SPEED = 10
+BRICK_ROWS = 5
+BRICK_COLUMNS = 10
+BRICK_WIDTH = SCREEN_WIDTH // BRICK_COLUMNS
+BRICK_HEIGHT = 20
+PADDLE_WIDTH = 100
+PADDLE_HEIGHT = 10
+BALL_SIZE = 10
+
+# Game states
+GAME_RUNNING = 0
+GAME_OVER = 1
+GAME_WON = 2
+
+#### split code ####
+game_object.py:
+# game_object.py
+
+import pygame
+from constants import *
+
+class GameObject:
+    def __init__(self, x, y, width, height, color):
+        self.rect = pygame.Rect(x, y, width, height)
+        self.color = color
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
+
+    def update(self):
+        pass
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game_object = GameObject(100, 100, 50, 50, RED)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        game_object.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+ball.py:
+# ball.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Ball(GameObject):
+    def __init__(self, x, y, size, color=WHITE, speed=INITIAL_BALL_SPEED):
+        super().__init__(x, y, size, size, color)
+        self.speed = speed
+        self.dx = speed
+        self.dy = -speed
+
+    def update(self):
+        self.rect.x += self.dx
+        self.rect.y += self.dy
+
+        # Bounce off the walls
+        if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
+            self.dx = -self.dx
+        if self.rect.top < 0:
+            self.dy = -self.dy
+
+    def reset(self, x, y):
+        self.rect.x = x
+        self.rect.y = y
+        self.dx = self.speed
+        self.dy = -self.speed
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        ball.update()
+        ball.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+paddle.py:
+# paddle.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Paddle(GameObject):
+    def __init__(self, x, y, width, height, color=BLUE, speed=PADDLE_SPEED):
+        super().__init__(x, y, width, height, color)
+        self.speed = speed
+
+    def update(self, keys):
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += self.speed
+
+        # Keep the paddle within the screen bounds
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > SCREEN_WIDTH:
+            self.rect.right = SCREEN_WIDTH
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+        paddle.update(keys)
+        paddle.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+brick.py:
+# brick.py
+
+import pygame
+from game_object import GameObject
+from constants import *
+
+class Brick(GameObject):
+    def __init__(self, x, y, width, height, color=GREEN):
+        super().__init__(x, y, width, height, color)
+        self.is_destroyed = False
+
+    def update(self):
+        if self.is_destroyed:
+            self.rect.x = -100  # Move off-screen
+            self.rect.y = -100
+
+if __name__ == "__main__":
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    brick = Brick(100, 100, BRICK_WIDTH, BRICK_HEIGHT)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        brick.draw(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+level_manager.py:
+# level_manager.py
+
+from brick import Brick
+from constants import *
+
+class LevelManager:
+    def __init__(self):
+        self.bricks = []
+        self.create_level()
+
+    def create_level(self):
+        self.bricks.clear()
+        for row in range(BRICK_ROWS):
+            for col in range(BRICK_COLUMNS):
+                x = col * BRICK_WIDTH
+                y = row * BRICK_HEIGHT + 50  # Offset to avoid overlap with top of the screen
+                brick = Brick(x, y, BRICK_WIDTH, BRICK_HEIGHT)
+                self.bricks.append(brick)
+
+    def draw_bricks(self, screen):
+        for brick in self.bricks:
+            if not brick.is_destroyed:
+                brick.draw(screen)
+
+    def update_bricks(self):
+        for brick in self.bricks:
+            brick.update()
+
+if __name__ == "__main__":
+    import pygame
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    level_manager = LevelManager()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        level_manager.draw_bricks(screen)
+        pygame.display.flip()
+    pygame.quit()
+
+#### split code ####
+collision_handler.py:
+# collision_handler.py
+
+from ball import Ball
+from paddle import Paddle
+from brick import Brick
+
+class CollisionHandler:
+    @staticmethod
+    def check_ball_paddle_collision(ball, paddle):
+        if ball.rect.colliderect(paddle.rect):
+            ball.dy = -ball.dy
+            # Adjust ball's dx based on where it hits the paddle
+            relative_intersect_x = (paddle.rect.x + paddle.rect.width / 2) - ball.rect.x
+            normalized_intersect_x = relative_intersect_x / (paddle.rect.width / 2)
+            ball.dx = normalized_intersect_x * ball.speed
+
+    @staticmethod
+    def check_ball_brick_collision(ball, bricks):
+        for brick in bricks:
+            if not brick.is_destroyed and ball.rect.colliderect(brick.rect):
+                brick.is_destroyed = True
+                ball.dy = -ball.dy
+                break  # Assuming one collision per frame
+
+if __name__ == "__main__":
+    import pygame
+    from constants import *
+    from level_manager import LevelManager
+
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    level_manager = LevelManager()
+    collision_handler = CollisionHandler()
+
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        keys = pygame.key.get_pressed()
+        screen.fill(BLACK)
+
+        paddle.update(keys)
+        ball.update()
+        level_manager.update_bricks()
+
+        collision_handler.check_ball_paddle_collision(ball, paddle)
+        collision_handler.check_ball_brick_collision(ball, level_manager.bricks)
+
+        paddle.draw(screen)
+        ball.draw(screen)
+        level_manager.draw_bricks(screen)
+
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+game_state.py:
+# game_state.py
+
+from constants import *
+
+class GameState:
+    def __init__(self):
+        self.lives = INITIAL_LIVES
+        self.score = 0
+        self.state = GAME_RUNNING
+
+    def lose_life(self):
+        self.lives -= 1
+        if self.lives <= 0:
+            self.state = GAME_OVER
+
+    def add_score(self, points):
+        self.score += points
+
+    def check_win(self, bricks):
+        if all(brick.is_destroyed for brick in bricks):
+            self.state = GAME_WON
+
+    def reset(self):
+        self.lives = INITIAL_LIVES
+        self.score = 0
+        self.state = GAME_RUNNING
+
+if __name__ == "__main__":
+    from level_manager import LevelManager
+    game_state = GameState()
+    level_manager = LevelManager()
+
+    # Simulate losing a life
+    game_state.lose_life()
+    print(f"Lives after losing one: {game_state.lives}")
+
+    # Simulate adding score
+    game_state.add_score(10)
+    print(f"Score after adding 10 points: {game_state.score}")
+
+    # Simulate checking for win condition
+    game_state.check_win(level_manager.bricks)
+    print(f"Game state after checking win condition: {game_state.state}")
+
+    # Reset game state
+    game_state.reset()
+    print(f"Game state after reset: Lives={game_state.lives}, Score={game_state.score}, State={game_state.state}")
+
+#### split code ####
+speed_controller.py:
+# speed_controller.py
+
+from constants import INITIAL_BALL_SPEED
+
+class SpeedController:
+    def __init__(self, initial_speed=INITIAL_BALL_SPEED):
+        self.speed = initial_speed
+
+    def increase_speed(self, increment=1):
+        self.speed += increment
+
+    def decrease_speed(self, decrement=1):
+        if self.speed - decrement > 0:
+            self.speed -= decrement
+
+    def get_speed(self):
+        return self.speed
+
+if __name__ == "__main__":
+    speed_controller = SpeedController()
+    print(f"Initial speed: {speed_controller.get_speed()}")
+
+    speed_controller.increase_speed()
+    print(f"Speed after increase: {speed_controller.get_speed()}")
+
+    speed_controller.decrease_speed()
+    print(f"Speed after decrease: {speed_controller.get_speed()}")
+
+#### split code ####
+input_handler.py:
+# input_handler.py
+
+import pygame
+
+class InputHandler:
+    def __init__(self, paddle, speed_controller):
+        self.paddle = paddle
+        self.speed_controller = speed_controller
+
+    def handle_input(self):
+        keys = pygame.key.get_pressed()
+        self.paddle.update(keys)
+
+        if keys[pygame.K_UP]:
+            self.speed_controller.increase_speed()
+        if keys[pygame.K_DOWN]:
+            self.speed_controller.decrease_speed()
+
+if __name__ == "__main__":
+    pygame.init()
+    from paddle import Paddle
+    from speed_controller import SpeedController
+    from constants import *
+
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+    speed_controller = SpeedController()
+    input_handler = InputHandler(paddle, speed_controller)
+
+    running = True
+    clock = pygame.time.Clock()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        input_handler.handle_input()
+
+        screen.fill(BLACK)
+        paddle.draw(screen)
+        pygame.display.flip()
+        clock.tick(60)
+    pygame.quit()
+
+#### split code ####
+
+You can import the code above with the filenames and use them in the current part.
+When writting codes, please takes into account the parts that are yet to be written, which they may need the current code to implement their functionality. Please write the code for the main.py:
+
+----------------------------------------------------------------------------------------------------
+response:
+```python
+# main.py
+
+import pygame
+from constants import *
+from ball import Ball
+from paddle import Paddle
+from level_manager import LevelManager
+from collision_handler import CollisionHandler
+from game_state import GameState
+from speed_controller import SpeedController
+from input_handler import InputHandler
+
+class BreakwallGame:
+    def __init__(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.clock = pygame.time.Clock()
+
+        self.ball = Ball(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, BALL_SIZE)
+        self.paddle = Paddle(SCREEN_WIDTH // 2 - PADDLE_WIDTH // 2, SCREEN_HEIGHT - PADDLE_HEIGHT - 10, PADDLE_WIDTH, PADDLE_HEIGHT)
+        self.level_manager = LevelManager()
+        self.collision_handler = CollisionHandler()
+        self.game_state = GameState()
+        self.speed_controller = SpeedController()
+        self.input_handler = InputHandler(self.paddle, self.speed_controller)
+
+    def run(self):
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+
+            self.input_handler.handle_input()
+
+            self.screen.fill(BLACK)
+
+            self.paddle.draw(self.screen)
+            self.ball.update()
+            self.ball.draw(self.screen)
+            self.level_manager.update_bricks()
+            self.level_manager.draw_bricks(self.screen)
+
+            self.collision_handler.check_ball_paddle_collision(self.ball, self.paddle)
+            self.collision_handler.check_ball_brick_collision(self.ball, self.level_manager.bricks)
+
+            if self.ball.rect.bottom > SCREEN_HEIGHT:
+                self.game_state.lose_life()
+                if self.game_state.state == GAME_OVER:
+                    running = False
+                else:
+                    self.ball.reset(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
+
+            self.game_state.check_win(self.level_manager.bricks)
+            if self.game_state.state == GAME_WON:
+                running = False
+
+            pygame.display.flip()
+            self.clock.tick(60)
+        pygame.quit()
+
+if __name__ == "__main__":
+    game = BreakwallGame()
+    game.run()
+```
+----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Debugging main.py:
+Passed: True, {'error': 'Process terminated due to timeout.', 'output': ''}
+----------------------------------------------------------------------------------------------------
