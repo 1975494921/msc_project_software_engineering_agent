@@ -23,25 +23,25 @@ class DualOutput:
         self.console.flush()
 
 def build_graph(llm_query: str):
-    builder = StateGraph(State)
+    graph_builder = StateGraph(State)
 
-    builder.add_node("detect_complexity_node", DetectComplexityNode(llm_query))
-    builder.add_node("structure_generation_node", StructureGenerationNode())
-    builder.add_node("planning_node", PlanningNode())
-    builder.add_node("code_generation_node", CodeGenerationNode())
-    builder.add_node("write_code_node", WriteCodeNode())
-    builder.add_node("debugging_node", DebuggingNode())
+    graph_builder.add_node("detect_complexity_node", DetectComplexityNode(llm_query))
+    graph_builder.add_node("structure_generation_node", StructureGenerationNode())
+    graph_builder.add_node("planning_node", PlanningNode())
+    graph_builder.add_node("code_generation_node", CodeGenerationNode())
+    graph_builder.add_node("write_code_node", WriteCodeNode())
+    graph_builder.add_node("debugging_node", DebuggingNode())
 
-    builder.add_edge("detect_complexity_node", "structure_generation_node")
-    builder.add_edge("structure_generation_node", "planning_node")
-    builder.add_conditional_edges("planning_node", route_planning_codegeneration)
-    builder.add_conditional_edges("debugging_node", debugging_route)
-    builder.add_conditional_edges("code_generation_node", code_generation_node_route)
-    builder.add_edge("write_code_node", "planning_node")
+    graph_builder.add_edge("detect_complexity_node", "structure_generation_node")
+    graph_builder.add_edge("structure_generation_node", "planning_node")
+    graph_builder.add_conditional_edges("planning_node", route_planning_codegeneration)
+    graph_builder.add_conditional_edges("debugging_node", debugging_route)
+    graph_builder.add_conditional_edges("code_generation_node", code_generation_node_route)
+    graph_builder.add_edge("write_code_node", "planning_node")
 
-    builder.set_entry_point("detect_complexity_node")
+    graph_builder.set_entry_point("detect_complexity_node")
 
-    return builder.compile()
+    return graph_builder.compile()
 
 if __name__ == '__main__':
     save_dir = 'generate_software'
@@ -61,12 +61,8 @@ if __name__ == '__main__':
     if not os.path.exists(project_dir):
         os.makedirs(project_dir)
 
-    # Open a file to write the print statements to
     with open(os.path.join(project_dir, 'logs.txt'), 'w') as f:
-        # Create a DualOutput object
         dual_output = DualOutput(f, sys.stdout)
-
-        # Redirect standard output to the DualOutput object
         sys.stdout = dual_output
 
         print(
